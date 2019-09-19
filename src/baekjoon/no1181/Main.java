@@ -1,3 +1,5 @@
+// 백준 1181
+
 package baekjoon.no1181;
 
 import java.io.BufferedReader;
