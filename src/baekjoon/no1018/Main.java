@@ -1,3 +1,5 @@
+// 백준 1018
+
 package baekjoon.no1018;
 
 import java.io.BufferedReader;
@@ -6,17 +8,16 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	static char[][] wfBoard, bfBoard;
-	static char[][] board;
+	static char[][] wfBoard, bfBoard, inputBoard;
 
 	static int check(int x, int y) {
 		int whiteCount = 0, blackCount = 0;
 
 		for (int i = x; i < x + 8; i++)
 			for (int j = y; j < y + 8; j++) {
-				if (board[i][j] != wfBoard[i - x][j - y])
+				if (inputBoard[i][j] != wfBoard[i - x][j - y])
 					whiteCount++;
-				if (board[i][j] != bfBoard[i - x][j - y])
+				if (inputBoard[i][j] != bfBoard[i - x][j - y])
 					blackCount++;
 			}
 
@@ -28,7 +29,7 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(reader.readLine());
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
-		board = new char[N][M];
+		inputBoard = new char[N][M];
 		wfBoard = new char[N][M];
 		bfBoard = new char[N][M];
 		for (int i = 0; i < 8; i++) {
@@ -41,7 +42,7 @@ public class Main {
 		for (int i = 0; i < N; i++) {
 			String s = reader.readLine();
 			for (int j = 0; j < M; j++) {
-				board[i][j] = s.charAt(j);
+				inputBoard[i][j] = s.charAt(j);
 			}
 		}
 		int result = Integer.MAX_VALUE;
