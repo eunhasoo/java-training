@@ -38,8 +38,8 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(reader.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		arr = new int[M + 1];
-		hasExisted = new boolean[M + 1];
+		arr = new int[9];
+		hasExisted = new boolean[9];
 		sb = new StringBuilder();
 		func(1);
 		System.out.println(sb);
