@@ -27,15 +27,15 @@ class Node {
 
 public class Main {
 
-	// 입력받은 중위순회 출력결과를 담은 객체
+	// 입력받은 전위순회 출력결과를 담은 객체
 	static ArrayDeque<Integer> deque = new ArrayDeque<>();
 
-	// 입력받은 중위순회 결과로부터 이진트리를 만든다
+	// 입력받은 전위순회 결과로부터 이진트리를 만든다
 	static Node buildTree(int min, int max) {
 		if (deque.size() == 0) {
 			return null;
 		}
-		int value = deque.getFirst(); // 중위순회는 루트노드가 맨앞에 있으므로 앞에서부터 확인
+		int value = deque.getFirst(); // 전위순회는 루트노드가 맨앞에 있으므로 앞에서부터 확인
 		if (value < min || value > max) { // 유효범위가 아니면 작업하지않고 리턴
 			return null;
 		}
