@@ -14,10 +14,9 @@ class Solution {
 			}
 
 			// 끝말잇기 규칙에 어긋나는지 검사
-			if (wordSet.contains(words[i]) || words[i].length() < 2) {
-				flag = true;
-				break;
-			} else if (i > 0 && !words[i].startsWith(words[i-1].charAt(words[i-1].length() - 1) + "")) {
+			if (words[i].length() < 2
+					|| i > 0 && !words[i].startsWith(words[i-1].charAt(words[i-1].length() - 1) + "")
+					|| wordSet.contains(words[i])) {
 				flag = true;
 				break;
 			}
