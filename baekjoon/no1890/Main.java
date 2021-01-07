@@ -39,9 +39,6 @@ public class Main {
 			}
 		}
 		
-		for (long[] d: dp)
-			System.out.println(Arrays.toString(d).replace("[", "").replace("]",""));
-		
 		System.out.println(dp[N - 1][N - 1]);
 	}
 	
