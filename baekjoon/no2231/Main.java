@@ -1,33 +1,32 @@
-// 백준 2231
+package baekjoon;
 
-package baekjoon.no2231;
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-	static int digitSum(int n) {
-		int result = 0;
-		while (n > 0) {
-			result += n % 10;
-			n /= 10;
+	
+	public static int digitSum(int num) {
+		int sum = 0;
+		while (num > 0) {
+			sum += (num % 10);
+			num = num / 10;
 		}
-		return result;
+		return sum;
 	}
-
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		int N = scan.nextInt();
-		int n = N, digitCount = 0;
-		while(n != 0) {
-			n /= 10;
-			digitCount++;
-		}
-		int startNum = N - digitCount * 9;
+	
+	public static boolean isConstructor(int n, int N) {
+		int res = n + digitSum(n);
+		return (res == N);
+	}
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(reader.readLine());
 		int answer = 0;
-		for(int i=startNum; i<=N; i++) {
-			if (i + digitSum(i) == N) {
-				answer = i;
-				break;
+		for (int number = N; number > 0; number--) {
+			if (isConstructor(number, N)) {
+				answer = number;
 			}
 		}
 		System.out.println(answer);
