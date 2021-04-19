@@ -1,4 +1,4 @@
-package baekjoon.no14888;
+package baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,54 +7,61 @@ import java.util.StringTokenizer;
 
 public class Main {
 	
-	int[] sequence;
-	int min = Integer.MAX_VALUE;
 	int max = Integer.MIN_VALUE;
+	int min = Integer.MAX_VALUE;
+	int[] numbers, operators;
 	
-	void makeNumber(int idx, int number, int plus, int minus, int mul, int div) {
-		if (idx == sequence.length - 1) {
-			min = Math.min(min, number);
-			max = Math.max(max, number);
+	void makeNumber(int idx, int sum) {
+		if (idx == numbers.length) {
+			max = Math.max(max, sum);
+			min = Math.min(min, sum);
 			return;
 		}
 		
-		if (idx < sequence.length - 1) {
-			if (plus > 0) {
-				makeNumber(idx + 1, number + sequence[idx + 1], plus - 1, minus, mul, div);
+		for (int i = 0; i < operators.length; i++) {
+			if (operators[i] == 0) continue;
+			
+			int calc = 0;
+			if (i == 0) {
+				calc = sum + numbers[idx];
+			} else if (i == 1) {
+				calc = sum - numbers[idx];
+			} else if (i == 2) {
+				calc = sum * numbers[idx];
+			} else {
+				calc = sum / numbers[idx];
 			}
-			if (minus > 0) {
-				makeNumber(idx + 1, number - sequence[idx + 1], plus, minus - 1, mul, div);
-			}
-			if (mul > 0) {
-				makeNumber(idx + 1, number * sequence[idx + 1], plus, minus, mul - 1, div);
-			}
-			if (div > 0) {
-				makeNumber(idx + 1, number / sequence[idx + 1], plus, minus, mul, div - 1);
-			}
+			
+			--operators[i];
+			makeNumber(idx + 1, calc);
+			++operators[i];
 		}
-	}
-
-	void run() throws NumberFormatException, IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(reader.readLine());
-		sequence = new int[N];
-		StringTokenizer st = new StringTokenizer(reader.readLine());
-		for (int i = 0; st.hasMoreTokens(); i++) {
-			sequence[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		st = new StringTokenizer(reader.readLine());
-		int plus = Integer.parseInt(st.nextToken());
-		int minus = Integer.parseInt(st.nextToken());
-		int mul = Integer.parseInt(st.nextToken());
-		int div = Integer.parseInt(st.nextToken());
-		
-		makeNumber(0, sequence[0], plus, minus, mul, div);
-		System.out.printf("%d\n%d", max, min);
 	}
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		new Main().run();
+	void run() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(reader.readLine());
+		
+		int N = Integer.parseInt(st.nextToken());
+		
+		numbers = new int[N];
+		st = new StringTokenizer(reader.readLine());
+		for (int i = 0; i < N; i++) {
+			numbers[i] = Integer.parseInt(st.nextToken());
+		}
+
+		operators = new int[4];
+		st = new StringTokenizer(reader.readLine());
+		for (int i = 0; i < 4; i++) {
+			operators[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		makeNumber(1, numbers[0]);
+		
+		System.out.printf("%d\n%d", max, min);
 	}
 
+	public static void main(String[] args) throws IOException {
+		new Main().run();
+	}
 }
