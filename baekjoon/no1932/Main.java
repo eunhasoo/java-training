@@ -1,5 +1,3 @@
-package baekjoon.no1932;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,44 +5,42 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	public int getMaxSum(int[][] triangle, int N) {
-		for (int i = 1; i < triangle.length; i++) {
-			for (int j = 1; j < triangle[i].length; j++) {
-				triangle[i][j] = Math.max(triangle[i][j] + triangle[i - 1][j - 1], 
-						triangle[i][j] + triangle[i - 1][j]);
-			}
-		}
-		
-		int max = 0;
-		for (int i = 0; i < triangle[N].length; i++) {
-			if (max < triangle[N][i])
-				max = triangle[N][i];
-		}
-		return max;
-	}
+    public int solution(int n, int[][] arr) {
+        if (n == 1) return arr[n][n];
 
-	public void run() throws NumberFormatException, IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(reader.readLine());
-		int[][] triangle = new int[N + 1][N + 1];
-		StringTokenizer st;
-		for (int i = 1; i <= N; i++) {
-			st = new StringTokenizer(reader.readLine());
-			int idx = 1;
-			while (st.hasMoreTokens()) {
-				triangle[i][idx++] = Integer.parseInt(st.nextToken());
-			}
-		}
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j < arr[i].length; j++) {
+                arr[i][j] += Math.max(arr[i - 1][j - 1], arr[i - 1][j]);
+            }
+        }
 
-		if (N == 1) {
-			System.out.println(triangle[N][N]);
-		} else {
-			System.out.println(getMaxSum(triangle, N));
-		}
-	}
+        int max = 0;
+        for (int i = 1; i < arr[n].length; i++) {
+            if (max < arr[n][i]) {
+                max = arr[n][i];
+            }
+        }
+        return max;
+    }
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		new Main().run();
-	}
+    public void run() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+        int n = Integer.parseInt(reader.readLine());
+
+        int[][] arr = new int[n + 1][n + 1];
+
+        for (int i = 1; i <= n; i++) {
+            StringTokenizer st = new StringTokenizer(reader.readLine());
+            for (int j = 1; st.hasMoreTokens(); j++) {
+                arr[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        System.out.println(solution(n, arr));
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Main().run();
+    }
 }
