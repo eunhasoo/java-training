@@ -1,29 +1,37 @@
-class Solution {
-    	int answer;
+public class Solution {
+    int N, number, answer;
 
-	public int solution(int N, int target) {
-		answer = 9;
-		dfs(N, target, 0, 0);
-		if (answer == 9) return -1;
-		return answer;
-	}
+    public void dfs(int current, int count) {
+        if (count > 8) return;
+        if (current == number) {
+            answer = Math.min(count, answer);
+            return;
+        }
 
-	public void dfs(int N, int target, int number, int count) {
-		if (count > 8) return;
-		if (number == target) {
-			if (count < answer) { // N 사용횟수가 최소값이면 갱신
-				answer = count;
-			}
-			return;
-		}
-		
-		int cal = 0;
-		for (int i = 0; i < 5; i++) {
-			cal = cal * 10 + N; // 5, 55, 555, ...
-			dfs(N, target, number + cal, count + (1 + i));
-			dfs(N, target, number - cal, count + (1 + i));
-			dfs(N, target, number * cal, count + (1 + i));
-			dfs(N, target, number / cal, count + (1 + i));
-		}
-	}
+        int c = 0;
+        for (int i = 0; i < 5; i++) {
+            c = c * 10 + N;
+
+            dfs(current + c, count + 1 + i);
+            dfs(current - c, count + 1 + i);
+            dfs(current / c, count + 1 + i);
+            dfs(current * c, count + 1 + i);
+        }
+    }
+
+    public int solution(int n, int num) {
+        N = n;
+        number = num;
+        answer = 9;
+
+        dfs(0, 0);
+
+        return (answer == 9) ? -1 : answer;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(
+            new Solution().solution(5, 12)
+        );
+    }
 }
