@@ -1,21 +1,32 @@
-package baekjoon.no1427;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
+// Counting sort
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		StringBuilder builder = new StringBuilder();
-		String input = scan.nextLine();
-		int[] numbers = new int[input.length()];
-		for(int i=0; i<input.length(); i++)
-			numbers[i] = input.charAt(i) - '0'; // char to int
-		Arrays.sort(numbers);
-		for(int i=numbers.length-1; i>=0; i--)
-			builder.append(numbers[i]);
-		System.out.print(builder);
-	}
-	
+    public void run() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String s = reader.readLine();
+
+        int[] numbers = new int[10];
+        for (int i = 0; i < s.length(); i++) {
+            int n = s.charAt(i) - '0';
+            numbers[n]++;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 9; i >= 0; i--) {
+            if (numbers[i] == 0) continue;
+
+            for (int j = 0; j < numbers[i]; j++) {
+                builder.append(i);
+            }
+        }
+        System.out.println(builder);
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Main().run();
+    }
 }
